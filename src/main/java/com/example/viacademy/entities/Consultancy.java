@@ -4,6 +4,8 @@ import com.example.viacademy.entities.pivots.ConsultancyCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,7 @@ public class Consultancy {
     @Column(length = 255)
     private String description;
 
+    @Column(columnDefinition = "boolean default false")
     private Boolean isDone;
 
     private Date dateOfConsultancy;
@@ -33,10 +36,14 @@ public class Consultancy {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User author;
 
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
 }

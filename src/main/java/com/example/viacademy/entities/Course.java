@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Course {
     private String description;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<CourseUser> courseUsers;
+    private List<CourseUser> courseBuyers;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<CourseCategory> courseCategories;
@@ -37,8 +39,12 @@ public class Course {
     @JsonBackReference
     private List<Video> videos;
 
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
 }

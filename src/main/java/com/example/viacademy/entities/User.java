@@ -4,6 +4,8 @@ import com.example.viacademy.entities.pivots.CourseUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 import java.util.List;
@@ -33,13 +35,14 @@ public class User {
     private Date dateOfBirth;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<CourseUser> courseUsers;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Consultancy> consultancies;
 
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
 }
