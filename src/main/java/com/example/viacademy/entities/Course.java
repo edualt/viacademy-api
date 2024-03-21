@@ -1,7 +1,7 @@
 package com.example.viacademy.entities;
 
 import com.example.viacademy.entities.pivots.CourseCategory;
-import com.example.viacademy.entities.pivots.CourseUser;
+import com.example.viacademy.entities.pivots.CourseStudentProfile;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -30,7 +30,7 @@ public class Course {
     private String description;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<CourseUser> courseBuyers;
+    private List<CourseStudentProfile> studentProfileCourses;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<CourseCategory> courseCategories;
@@ -40,9 +40,9 @@ public class Course {
     private List<Video> videos;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "instructor_profile_id")
     @JsonManagedReference
-    private User author;
+    private InstructorProfile instructorProfile;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

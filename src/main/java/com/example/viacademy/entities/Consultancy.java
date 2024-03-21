@@ -1,6 +1,7 @@
 package com.example.viacademy.entities;
 
 import com.example.viacademy.entities.pivots.ConsultancyCategory;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,8 +36,9 @@ public class Consultancy {
     private List<ConsultancyCategory> consultancyCategories;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "instructor_profile_id")
+    @JsonManagedReference
+    private InstructorProfile instructorProfile;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -1,5 +1,6 @@
 package com.example.viacademy.entities;
 
+import com.example.viacademy.entities.pivots.CourseStudentProfile;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,6 @@ public class StudentProfile {
     private User user;
 
     @OneToMany(mappedBy = "studentProfile")
-    private List<Course> purchasedCourses;
+    private List<CourseStudentProfile> courseStudentProfiles;
 
 }
