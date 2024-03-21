@@ -29,10 +29,6 @@ public class Video {
     private Long duration;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
-
-    @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 

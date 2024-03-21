@@ -39,6 +39,11 @@ public class Course {
     @JsonBackReference
     private List<Video> videos;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    private User author;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;

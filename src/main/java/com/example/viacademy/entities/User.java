@@ -34,8 +34,11 @@ public class User {
 
     private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Consultancy> consultancies;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private StudentProfile studentProfile;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private InstructorProfile instructorProfile;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
