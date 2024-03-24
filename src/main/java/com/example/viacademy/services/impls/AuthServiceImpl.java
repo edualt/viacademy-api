@@ -1,6 +1,7 @@
 package com.example.viacademy.services.impls;
 
 import com.example.viacademy.entities.User;
+import com.example.viacademy.entities.pivots.UserRole;
 import com.example.viacademy.services.IAuthService;
 import com.example.viacademy.services.IUserService;
 import com.example.viacademy.types.JWTType;
@@ -9,9 +10,11 @@ import com.example.viacademy.web.dtos.requests.AuthenticateRequest;
 import com.example.viacademy.web.dtos.responses.AuthenticateResponse;
 import com.example.viacademy.web.dtos.responses.BaseResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,10 +47,11 @@ public class AuthServiceImpl implements IAuthService {
             throw new RuntimeException("Invalid password");
         }
 
-        List<String> roles = user.getUserRoles().stream().map(userRole -> userRole.getRole().getName()).toList();
+        List<UserRole> userRoleList = user.getUserRoles();
+        List<String> rolesStringList = getRolesString(userRoleList);
         Map<String, Object> payload = Map.of(
                 "name", user.getFirstName() + " " + user.getLastName(),
-                "roles", roles
+                "roles", rolesStringList
         );
         String accessToken = jwtUtils.getToken(user.getEmail(), payload, JWTType.ACCESS_TOKEN);
 
@@ -60,6 +64,13 @@ public class AuthServiceImpl implements IAuthService {
                 .data(response)
                 .httpStatus(HttpStatus.CREATED)
                 .build();
+    }
+
+    private List<String> getRolesString(List<UserRole> roles) {
+        if (roles == null) {
+            return List.of();
+        }
+        return roles.stream().map(userRole -> userRole.getRole().getName()).toList();
     }
 
     private boolean isPasswordValid(String password, String hashedPassword) {
