@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,17 +20,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build and test with Maven
-        run: mvn --batch-mode package
+        run: mvn clean test -B -DMYSQL_HOST=$MYSQL_HOST -DMYSQL_USERNAME=$MYSQL_USERNAME -DMYSQL_PASSWORD=$MYSQL_PASSWORD -DJWT_ACCESS_TOKEN_SECRET_KEY=$JWT_ACCESS_TOKEN_SECRET_KEY
 
     env:
       MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
       MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
       MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
       JWT_ACCESS_TOKEN_SECRET_KEY: ${{ secrets.JWT_ACCESS_TOKEN_SECRET_KEY }}
-
-  using-env:
-    runs-on: ubuntu-latest
-    steps:
-      - name: output some vars
-        run: |
-          echo "MYSQL_HOST: ${{ secrets.MYSQL_HOST }}"
