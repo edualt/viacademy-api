@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build and test with Maven
-        run: mvn clean test -B -DMYSQL_HOST=$MYSQL_HOST -DMYSQL_USERNAME=$MYSQL_USERNAME -DMYSQL_PASSWORD=$MYSQL_PASSWORD -DJWT_ACCESS_TOKEN_SECRET_KEY=$JWT_ACCESS_TOKEN_SECRET_KEY
+        run: mvn -B -DMYSQL_HOST=${{ secrets.MYSQL_HOST }} -DMYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} -DMYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} -DJWT_ACCESS_TOKEN_SECRET_KEY=${{ secrets.JWT_ACCESS_TOKEN_SECRET_KEY }} clean test
 
     env:
       MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
