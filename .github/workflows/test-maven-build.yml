@@ -27,3 +27,10 @@ jobs:
       MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
       MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
       JWT_ACCESS_TOKEN_SECRET_KEY: ${{ secrets.JWT_ACCESS_TOKEN_SECRET_KEY }}
+
+  using-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: output some vars
+        run: |
+          echo "MYSQL_HOST: ${{ secrets.MYSQL_HOST }}"
