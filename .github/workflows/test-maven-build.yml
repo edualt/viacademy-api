@@ -19,14 +19,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Create .env file
-        run: |
-          echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" >> .env
-          echo "MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }}" >> .env
-          echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> .env
-          echo "JWT_ACCESS_TOKEN_SECRET_KEY=${{ secrets.JWT_ACCESS_TOKEN_SECRET_KEY }}" >> .env
-      - name: Load .env file
-        run: |
-          export $(cat .env | xargs)
       - name: Run tests
         run: mvn -B test
+    env:
+      MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+      MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      JWT_ACCESS_TOKEN_SECRET_KEY: ${{ secrets.JWT_ACCESS_TOKEN_SECRET_KEY }}
