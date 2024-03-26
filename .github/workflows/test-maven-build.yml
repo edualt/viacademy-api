@@ -25,6 +25,8 @@ jobs:
           echo "MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }}" >> .env
           echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> .env
           echo "JWT_ACCESS_TOKEN_SECRET_KEY=${{ secrets.JWT_ACCESS_TOKEN_SECRET_KEY }}" >> .env
+      - name: Print .env file
+        run: cat .env
       - name: Load .env file
         run: |
           source .env
