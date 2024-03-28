@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 @Builder
 @Getter
 public class BaseResponse {
-
     private Object data;
 
     private String message;
