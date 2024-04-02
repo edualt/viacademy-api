@@ -3,12 +3,11 @@ package com.example.viacademy.security;
 import com.example.viacademy.security.entrypoints.ExceptionAccessDeniedHandlerImpl;
 import com.example.viacademy.security.entrypoints.ExceptionAuthenticationEntryPointImpl;
 import com.example.viacademy.security.filters.JWTVerifierFilter;
-import com.example.viacademy.utils.JWTUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -46,7 +45,8 @@ public class SecurityConfig {
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/roles/**").hasAnyRole("ADMIN")
-                                .anyRequest().authenticated()
+                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .anyRequest().authenticated()
                 );
 
         return http.build();
