@@ -37,3 +37,5 @@ build/
 .env.test
 .env.local
 .env.development
+
+.DS_Store
