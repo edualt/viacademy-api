@@ -10,7 +10,5 @@ import java.util.Date;
 public class UpdateConsultancyResponse {
     private String title;
     private String description;
-    private Boolean isDone;
     private Long[] categoryIds;
-    private Date dateOfConsultancy;
 }

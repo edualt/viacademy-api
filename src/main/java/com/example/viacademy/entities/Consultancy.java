@@ -29,11 +29,6 @@ public class Consultancy {
     @Column(length = 255)
     private String description;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isDone;
-
-    private Date dateOfConsultancy;
-
     @OneToMany(mappedBy = "consultancy", cascade = CascadeType.ALL)
     private List<ConsultancyCategory> consultancyCategories;
 

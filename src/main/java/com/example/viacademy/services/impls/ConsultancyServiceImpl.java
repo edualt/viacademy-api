@@ -78,7 +78,6 @@ public class ConsultancyServiceImpl implements IConsultancyService {
 
         consultancy.setTitle(request.getTitle());
         consultancy.setDescription(request.getDescription());
-        consultancy.setDateOfConsultancy(request.getDateOfConsultancy());
 //        consultancy.setConsultancyCategories(request.getCategoryIds());
 
         return BaseResponse.builder()

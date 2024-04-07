@@ -16,11 +16,5 @@ public class UpdateConsultancyRequest {
     private String description;
 
     @NotBlank
-    private Boolean isDone;
-
-    @NotBlank
     private Long[] categoryIds;
-
-    @NotBlank
-    private Date dateOfConsultancy;
 }
