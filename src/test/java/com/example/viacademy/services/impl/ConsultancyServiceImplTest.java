@@ -22,7 +22,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -71,47 +70,16 @@ public class ConsultancyServiceImplTest {
     }
 
     @Test
-    public void whenGivenId_shouldReturnConsultancy_ifFound_andUserIsOwner() {
+    public void whenGivenId_shouldReturnConsultancy_ifFound(){
         // Arrange
-        Authentication authentication = getAuthentication(user);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
         given(consultancyRepository.findById(89L)).willReturn(Optional.of(consultancy));
+
         // Act
         BaseResponse response = consultancyService.get(89L);
 
         // Assert
         Assertions.assertTrue(response.getSuccess());
         Assertions.assertSame(response.getHttpStatus(), HttpStatus.OK);
-    }
-
-    @Test
-    public void whenGivenId_shouldntReturnConsultancy_ifFound_andUserIsNotOwner() {
-        // Arrange
-        User user2 = new User();
-        user2.setId(2L);
-        user2.setEmail("test@mail.com");
-
-        InstructorProfile instructorProfile2 = new InstructorProfile();
-        instructorProfile2.setId(2L);
-        instructorProfile2.setUser(user2);
-
-        user2.setInstructorProfile(instructorProfile2);
-
-        Consultancy consultancy2 = new Consultancy();
-        consultancy2.setId(89L);
-        consultancy2.setTitle("Test");
-        consultancy2.setInstructorProfile(instructorProfile2);
-
-        Authentication authentication = getAuthentication(user);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        given(consultancyRepository.findById(89L)).willReturn(Optional.of(consultancy2));
-        // Act
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> consultancyService.get(89L));
-
-        // Assert
-        assertEquals("You are not allowed to access this consultancy", exception.getMessage());
     }
 
     @Test

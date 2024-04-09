@@ -23,6 +23,12 @@ public class ConsultancyController {
         return response.apply();
     }
 
+    @GetMapping
+    public ResponseEntity<BaseResponse> list() {
+        BaseResponse response = service.list();
+        return response.apply();
+    }
+
     @PostMapping
     public ResponseEntity<BaseResponse> create(@RequestBody CreateConsultancyRequest request) {
         BaseResponse response = service.create(request);

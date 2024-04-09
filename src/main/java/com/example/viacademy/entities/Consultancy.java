@@ -29,6 +29,8 @@ public class Consultancy {
     @Column(length = 255)
     private String description;
 
+    private String imageUrl;
+
     @OneToMany(mappedBy = "consultancy", cascade = CascadeType.ALL)
     private List<ConsultancyCategory> consultancyCategories;
 

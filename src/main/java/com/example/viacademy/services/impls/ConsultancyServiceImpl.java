@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConsultancyServiceImpl implements IConsultancyService {
     private final IConsultancyRepository repository;
@@ -33,16 +35,21 @@ public class ConsultancyServiceImpl implements IConsultancyService {
     public BaseResponse get(Long id) {
         Consultancy consultancy = findOneAndEnsureExist(id);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = authenticationUtils.getUserAuthenticated(authentication);
-
-        if(!consultancy.getInstructorProfile().getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("You are not allowed to access this consultancy");
-        }
-
         return BaseResponse.builder()
                 .data(mapper.INSTANCE.toGetConsultancyResponse(consultancy))
                 .message("Consultancy retrieved")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    @Override
+    public BaseResponse list() {
+        List<Consultancy> consultancies = repository.findAll();
+
+        return BaseResponse.builder()
+                .data(consultancies.stream().map(mapper.INSTANCE::toGetConsultancyResponse))
+                .message("Consultancies retrieved")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
