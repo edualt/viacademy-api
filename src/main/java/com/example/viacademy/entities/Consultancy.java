@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "consultancies")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Consultancy {
 
     @Id
@@ -27,10 +29,7 @@ public class Consultancy {
     @Column(length = 255)
     private String description;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isDone;
-
-    private Date dateOfConsultancy;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "consultancy", cascade = CascadeType.ALL)
     private List<ConsultancyCategory> consultancyCategories;
