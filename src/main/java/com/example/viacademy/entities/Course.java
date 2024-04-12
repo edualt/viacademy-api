@@ -26,7 +26,6 @@ public class Course {
     @Column(length = 100)
     private String name;
 
-    @Column(length = 255)
     private String description;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
@@ -37,7 +36,7 @@ public class Course {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<Video> videos;
+    private List<CourseVideo> courseVideos;
 
     @ManyToOne
     @JoinColumn(name = "instructor_profile_id")
