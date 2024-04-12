@@ -41,11 +41,12 @@ public class SecurityConfig {
                     exception.accessDeniedHandler(accessDeniedHandler);
                 })
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/swagger-ui/**").permitAll()
-                                .requestMatchers("/v3/api-docs/**").permitAll()
-                                .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/roles/**").hasAnyRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/files/**").permitAll()
+                        .requestMatchers("/roles/**").hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .anyRequest().authenticated()
                 );
 
