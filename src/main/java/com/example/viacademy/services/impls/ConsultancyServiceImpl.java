@@ -118,6 +118,6 @@ public class ConsultancyServiceImpl implements IConsultancyService {
 
     @Override
     public Consultancy findOneAndEnsureExist(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("User doesn't exist"));
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Consultancy doesn't exist"));
     }
 }
