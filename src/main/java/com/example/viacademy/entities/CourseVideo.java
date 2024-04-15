@@ -9,24 +9,23 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "videos")
+@Table(name = "course_videos")
 @Getter
 @Setter
-public class Video {
+public class CourseVideo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
 
-    @Column(length = 100)
     private String title;
 
-    @Column(length = 255)
     private String description;
 
-    private Long duration;
+    private String url;
+
+    private Integer order;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
